@@ -23,8 +23,9 @@ import kotlinx.coroutines.launch
 
 
 class TabsAdapter(private val tabsView: TabsView) : RecyclerView.Adapter<TabViewHolder>() {
-    private val tabsCopy =
-        ArrayList<WebTabState>().apply { addAll(tabsModel?.tabsStates ?: emptyList()) }
+    // Initialize tabsCopy as an empty list
+    private val tabsCopy = ArrayList<WebTabState>()
+
     var current: Int = 0
     var listener: Listener? = null
     val uiHandler = Handler(Looper.getMainLooper())
@@ -50,7 +51,10 @@ class TabsAdapter(private val tabsView: TabsView) : RecyclerView.Adapter<TabView
     }
 
     override fun onBindViewHolder(holder: TabViewHolder, position: Int) {
-        holder.bind(tabsCopy[position], position)
+        // Ensure tabsCopy is not accessed if it's potentially empty before tabsModel is set
+        if (position < tabsCopy.size) {
+            holder.bind(tabsCopy[position], position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -58,10 +62,14 @@ class TabsAdapter(private val tabsView: TabsView) : RecyclerView.Adapter<TabView
     }
 
     fun onTabListChanged() {
-        val tabsDiffUtilCallback =
-            TabsDiffUtillCallback(tabsCopy, tabsModel?.tabsStates ?: emptyList())
+        val oldList = ArrayList(tabsCopy) // Create a new list snapshot for DiffUtil
+        val newList = tabsModel?.tabsStates ?: emptyList()
+
+        val tabsDiffUtilCallback = TabsDiffUtillCallback(oldList, newList)
         val tabsDiffResult = DiffUtil.calculateDiff(tabsDiffUtilCallback)
-        tabsCopy.apply { clear() }.addAll(tabsModel?.tabsStates ?: emptyList())
+
+        tabsCopy.clear()
+        tabsCopy.addAll(newList)
         tabsDiffResult.dispatchUpdatesTo(this)
     }
 
