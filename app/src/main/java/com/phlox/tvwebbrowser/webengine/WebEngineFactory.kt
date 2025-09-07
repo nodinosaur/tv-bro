@@ -14,6 +14,24 @@ import com.phlox.tvwebbrowser.webengine.webview.WebViewWebEngine
 object WebEngineFactory {
     @UiThread
     suspend fun initialize(context: Context, webViewContainer: CursorLayout) {
+        GeckoWebEngine.initialize(context, webViewContainer)
+    }
+
+    fun createWebEngine(tab: WebTabState): WebEngine {
+        return GeckoWebEngine(tab)
+    }
+
+    suspend fun clearCache(ctx: Context) {
+        GeckoWebEngine.clearCache(ctx)
+    }
+
+    fun onThemeSettingUpdated(value: Config.Theme) {
+        GeckoWebEngine.onThemeSettingUpdated(value)
+    }
+}
+object WebEngineFactory2 {
+    @UiThread
+    suspend fun initialize(context: Context, webViewContainer: CursorLayout) {
         if (TVBro.config.isWebEngineGecko()) {
             GeckoWebEngine.initialize(context, webViewContainer)
             //HomePageHelper.prepareHomePageFiles()

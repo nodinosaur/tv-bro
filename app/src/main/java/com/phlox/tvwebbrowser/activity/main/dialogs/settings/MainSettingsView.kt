@@ -15,7 +15,8 @@ import androidx.webkit.WebViewFeature
 import com.phlox.tvwebbrowser.Config
 import com.phlox.tvwebbrowser.R
 import com.phlox.tvwebbrowser.TVBro
-import com.phlox.tvwebbrowser.activity.main.AdblockModel
+import com.phlox.tvwebbrowser.activity.main.AdBlockNoOpModel
+//import com.phlox.tvwebbrowser.activity.main.AdblockModel
 import com.phlox.tvwebbrowser.activity.main.MainActivity
 import com.phlox.tvwebbrowser.activity.main.SettingsModel
 import com.phlox.tvwebbrowser.databinding.ViewSettingsMainBinding
@@ -32,7 +33,7 @@ class MainSettingsView @JvmOverloads constructor(
 ) : ScrollView(context, attrs, defStyleAttr) {
     private var vb = ViewSettingsMainBinding.inflate(LayoutInflater.from(getContext()), this, true)
     var settingsModel = ActiveModelsRepository.get(SettingsModel::class, activity!!)
-    var adblockModel = ActiveModelsRepository.get(AdblockModel::class, activity!!)
+    var adblockModel = ActiveModelsRepository.get(AdBlockNoOpModel::class, activity!!)
     var config = TVBro.config
 
     init {
