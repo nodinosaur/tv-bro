@@ -150,7 +150,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
 
     implementation("com.github.truefedex:segmented-button:v1.0.0")
-    implementation("com.github.truefedex:ad-block:v0.0.1-ci")
+    //implementation("com.github.truefedex:ad-block:v0.0.1-ci")
     implementation("de.halfbit:pinned-section-listview:1.0.0")
 
     //val geckoViewChannel = "beta"

@@ -82,7 +82,7 @@ open class MainActivity : AppCompatActivity(), ActionBar.Callback {
     private lateinit var viewModel: MainActivityViewModel
     private lateinit var tabsModel: TabsModel
     private lateinit var settingsModel: SettingsModel
-    private lateinit var adblockModel: AdblockModel
+    private lateinit var adblockModel: AdBlockNoOpModel// AdblockModel
     private lateinit var autoUpdateModel: AutoUpdateModel
     private lateinit var uiHandler: Handler
     private var running: Boolean = false
@@ -117,7 +117,7 @@ open class MainActivity : AppCompatActivity(), ActionBar.Callback {
             viewModel.prepareSwitchToIncognito()
         }
         settingsModel = ActiveModelsRepository.get(SettingsModel::class, this)
-        adblockModel = ActiveModelsRepository.get(AdblockModel::class, this)
+        adblockModel = ActiveModelsRepository.get(AdBlockNoOpModel::class, this)
         tabsModel = ActiveModelsRepository.get(TabsModel::class, this)
         autoUpdateModel = ActiveModelsRepository.get(AutoUpdateModel::class, this)
         uiHandler = Handler()
